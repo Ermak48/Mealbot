@@ -24,22 +24,10 @@ bot = telebot.TeleBot(config.token)
 @bot.message_handler(content_types=['text'])
 def starting_menu(message):
 	if message.text == '/start':
-		keyboard = telebot.types.ReplyKeyboardMarkup(resize_keyboard=True)
-		inline_keyboard = telebot.types.InlineKeyboardMarkup()
-		keyboard.row('Меню')
-		keyboard.row('Моя корзина')
-		keyboard.row('Контакты заведения')
-		inl_button1 = telebot.types.InlineKeyboardButton(text='Меню', callback_data='menu')
-		inline_keyboard.add(inl_button1)
-		inl_button2 = telebot.types.InlineKeyboardButton(text='Моя корзина',callback_data='order')
-		inline_keyboard.add(inl_button2)
-		inl_button3 = telebot.types.InlineKeyboardButton(text='Контакты заведения',callback_data='rest_contact')
-		inline_keyboard.add(inl_button3)
-		bot.send_message(message.chat.id, start_phrase ,reply_markup=inline_keyboard)
-		bot.send_message(message.chat.id, key_board_phrase, reply_markup = keyboard)
+		bot.send_message(message.chat.id, start_phrase ,reply_markup = markups.inline_keyboard)
+		bot.send_message(message.chat.id, key_board_phrase, reply_markup = markups.keyboard)
 	elif message.text == 'Меню':
 		bot.send_message(message.chat.id,menu_phrase, reply_markup = markups.menu_kb)
-
 	elif message.text == 'Контакты заведения':
 		bot.send_message(message.chat.id, rest_contact)
 	else: 
@@ -59,11 +47,6 @@ def inline_keyboard_query(call):
 			pass
 		if call.data == 'salad':
 			pass
-
-			
-
-
-
 
 if __name__ == '__main__':
      bot.polling(none_stop=True)
